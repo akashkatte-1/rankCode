@@ -1,0 +1,71 @@
+<div class="submissions-container">
+    <h1 class="submissions-title">Your Submissions History</h1>
+  
+    <ng-container *ngIf="user; else notLoggedIn">
+      <div *ngIf="loading" class="message-center-text">
+        <div class="loading-spinner"></div>
+        Loading submissions...
+      </div>
+  
+      <div *ngIf="error" class="error-message-text">
+        {{ error }}
+      </div>
+  
+      <div *ngIf="!loading && !error && submissions.length === 0" class="message-center-text">
+        No submissions found. Start solving problems!
+      </div>
+  
+      <div *ngIf="!loading && !error && submissions.length > 0" class="table-responsive">
+        <table class="submissions-table">
+          <thead class="table-header-bg">
+            <tr>
+              <th class="table-header-cell rounded-top-left">
+                Problem
+              </th>
+              <th class="table-header-cell">
+                Language
+              </th>
+              <th class="table-header-cell">
+                Status
+              </th>
+              <th class="table-header-cell">
+                Runtime
+              </th>
+              <th class="table-header-cell">
+                Memory
+              </th>
+              <th class="table-header-cell rounded-top-right">
+                Submitted At
+              </th>
+            </tr>
+          </thead>
+          <tbody class="table-body-divider">
+            <tr *ngFor="let sub of submissions" class="table-row-hover">
+              <td class="table-cell-problem-title">
+                {{ sub.problem_title }}
+              </td>
+              <td class="table-cell-text">{{ sub.language }}</td>
+              <td class="table-cell-text">
+                <span
+                  [class]="'status-badge ' + getStatusColor(sub.status)"
+                >
+                  {{ sub.status }}
+                </span>
+              </td>
+              <td class="table-cell-text">{{ sub.runtime }}</td>
+              <td class="table-cell-text">{{ sub.memory }}</td>
+              <td class="table-cell-date">
+                {{ sub.submitted_at | date:'medium' }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ng-container>
+    <ng-template #notLoggedIn>
+      <div class="message-center-text">
+        Please log in to view your submissions.
+      </div>
+    </ng-template>
+  </div>
+  

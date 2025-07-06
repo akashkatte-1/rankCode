@@ -1,0 +1,190 @@
+<!-- src/app/pages/home/home.component.html -->
+
+<!-- Header Section -->
+<header class="main-header">
+    <a href="#" class="header-logo">CodeSphere</a>
+    <nav class="header-nav-links">
+        <a href="#" class="nav-link active">Home</a>
+        <a href="#" class="nav-link">Problems</a>
+        <a href="#" class="nav-link">Contests</a>
+        <a href="#" class="nav-link">Leaderboard</a>
+        <a routerLink="/login" style="cursor: pointer;" class="nav-link">Logout</a>
+    </nav>
+    <div class="header-actions">
+        <button class="icon-button">
+            <!-- Notification Icon SVG -->
+            <svg class="notification-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+        </button>
+        <button class="icon-button">
+            <!-- Profile Icon SVG or Image -->
+            <img src="https://placehold.co/40x40/8b5cf6/ffffff?text=U" alt="User Avatar" class="profile-avatar">
+        </button>
+    </div>
+</header>
+
+<!-- Main Dashboard Content -->
+<section class="home-dashboard-container">
+
+    <!-- Welcome/Daily Challenge Section -->
+    <div class="dashboard-grid-main">
+        <div class="welcome-card">
+            <h1 class="welcome-title">Welcome Back, Coder!</h1>
+            <p class="welcome-subtitle">Your next challenge awaits. Keep building, keep learning.</p>
+            <button class="welcome-cta-button">Continue Your Progress</button>
+        </div>
+
+        <div class="daily-challenge-card">
+            <h2 class="card-heading">Daily Challenge</h2>
+            <div class="daily-challenge-content">
+                <h3 class="challenge-title">Find the Missing Number</h3>
+                <p class="challenge-description">Given an array `nums` containing `n` distinct numbers in the range `[0, n]`, return the only number in the range that is missing from the array.</p>
+                <div class="challenge-meta">
+                    <span class="challenge-difficulty easy">Easy</span>
+                    <span class="challenge-tags">Array, Bit Manipulation</span>
+                </div>
+                <button class="solve-challenge-button">Solve Challenge</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured Contests Section -->
+    <section class="section-card">
+        <h2 class="section-heading">Featured Contests</h2>
+        <div class="contest-grid">
+            <div class="contest-card">
+                <h3 class="contest-title">Weekly Algorithm Sprint</h3>
+                <p class="contest-description">Sharpen your algorithms. Compete for top ranks!</p>
+                <div class="contest-info">
+                    <span class="contest-difficulty">Mixed</span>
+                    <span class="contest-duration">Ends in: 2d 10h</span>
+                </div>
+                <button class="contest-button">Join Contest</button>
+            </div>
+            <div class="contest-card">
+                <h3 class="contest-title">Data Structures Battle</h3>
+                <p class="contest-description">Test your knowledge on advanced data structures.</p>
+                <div class="contest-info">
+                    <span class="contest-difficulty">Medium</span>
+                    <span class="contest-duration">Starts in: 5d 04h</span>
+                </div>
+                <button class="contest-button">View Details</button>
+            </div>
+            <div class="contest-card">
+                <h3 class="contest-title">Beginner's Code-Off</h3>
+                <p class="contest-description">A friendly competition for new programmers.</p>
+                <div class="contest-info">
+                    <span class="contest-difficulty">Easy</span>
+                    <span class="contest-duration">Starts in: 7d 12h</span>
+                </div>
+                <button class="contest-button">View Details</button>
+            </div>
+        </div>
+        <div class="view-all-button-container">
+            <button class="view-all-button">View All Contests</button>
+        </div>
+    </section>
+
+    <!-- Recommended Problems Section -->
+    <section class="section-card">
+        <h2 class="section-heading">Recommended Problems</h2>
+        <div class="problem-card-grid">
+            <div class="problem-card">
+                <h3 class="problem-card-title">Reverse Linked List</h3>
+                <p class="problem-card-description">Reverse a singly linked list.</p>
+                <div class="problem-card-meta">
+                    <span class="problem-card-difficulty medium">Medium</span>
+                    <span class="problem-card-tags">Linked List, Recursion</span>
+                </div>
+                <button class="problem-card-button">Solve Problem</button>
+            </div>
+            <div class="problem-card">
+                <h3 class="problem-card-title">Valid Parentheses</h3>
+                <p class="problem-card-description">Check if a string has valid parentheses.</p>
+                <div class="problem-card-meta">
+                    <span class="problem-card-difficulty easy">Easy</span>
+                    <span class="problem-card-tags">String, Stack</span>
+                </div>
+                <button class="problem-card-button">Solve Problem</button>
+            </div>
+            <div class="problem-card">
+                <h3 class="problem-card-title">Merge Two Sorted Lists</h3>
+                <p class="problem-card-description">Merge two sorted linked lists into one.</p>
+                <div class="problem-card-meta">
+                    <span class="problem-card-difficulty easy">Easy</span>
+                    <span class="problem-card-tags">Linked List</span>
+                </div>
+                <button class="problem-card-button">Solve Problem</button>
+            </div>
+        </div>
+        <div class="view-all-button-container">
+            <button class="view-all-button">Browse All Problems</button>
+        </div>
+    </section>
+
+    <!-- Your Progress/Stats Section -->
+    <section class="section-card">
+        <h2 class="section-heading">Your Progress</h2>
+        <div class="progress-grid">
+            <div class="progress-item">
+                <div class="progress-value">125</div>
+                <div class="progress-label">Problems Solved</div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-value">Level 18</div>
+                <div class="progress-label">Current Level</div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-value">85%</div>
+                <div class="progress-label">Success Rate</div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-value">7 Days</div>
+                <div class="progress-label">Current Streak</div>
+            </div>
+        </div>
+        <div class="view-all-button-container">
+            <button class="view-all-button">View Full Profile</button>
+        </div>
+    </section>
+
+</section>
+
+<!-- Footer Section -->
+<footer class="main-footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4 class="footer-heading">CodeSphere</h4>
+            <p class="footer-text">Master your coding journey.</p>
+        </div>
+        <div class="footer-section">
+            <h4 class="footer-heading">Quick Links</h4>
+            <ul class="footer-links">
+                <li><a href="#" class="footer-link">Problems</a></li>
+                <li><a href="#" class="footer-link">Contests</a></li>
+                <li><a href="#" class="footer-link">Leaderboard</a></li>
+                <li><a href="#" class="footer-link">About Us</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4 class="footer-heading">Connect</h4>
+            <ul class="footer-links">
+                <li><a href="#" class="footer-link">Support</a></li>
+                <li><a href="#" class="footer-link">Community Forum</a></li>
+                <li><a href="#" class="footer-link">Contact Us</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4 class="footer-heading">Legal</h4>
+            <ul class="footer-links">
+                <li><a href="#" class="footer-link">Privacy Policy</a></li>
+                <li><a href="#" class="footer-link">Terms of Service</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p class="copyright-text">&copy; 2025 CodeSphere. All rights reserved.</p>
+    </div>
+</footer>

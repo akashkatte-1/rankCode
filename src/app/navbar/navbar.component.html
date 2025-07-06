@@ -1,0 +1,45 @@
+<nav class="bg-gray-800 p-4 shadow-lg">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="text-white text-2xl font-bold rounded-md">
+        <button (click)="setCurrentPage.emit('home')" class="hover:text-gray-300 transition-colors">
+          CodePlatform
+        </button>
+      </div>
+      <div class="flex space-x-6">
+        <button
+          *ngFor="let item of navItems$ | async"
+          (click)="setCurrentPage.emit(item.page)"
+          [class]="'text-white px-3 py-2 rounded-md text-lg font-medium transition-colors ' +
+                   (currentPage === item.page ? 'bg-gray-700' : 'hover:bg-gray-700')"
+        >
+          {{ item.name }}
+        </button>
+      </div>
+      <div class="flex items-center space-x-4">
+        <ng-container *ngIf="user$ | async as user; else loggedOut">
+          <span class="text-white text-lg">Hello, {{ user.username }}!</span>
+          <button
+            (click)="authService.logout()"
+            class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-lg font-medium transition-colors shadow-md"
+          >
+            Logout
+          </button>
+        </ng-container>
+        <ng-template #loggedOut>
+          <button
+            (click)="setCurrentPage.emit('login')"
+            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-lg font-medium transition-colors shadow-md"
+          >
+            Login
+          </button>
+          <button
+            (click)="setCurrentPage.emit('register')"
+            class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-lg font-medium transition-colors shadow-md"
+          >
+            Register
+          </button>
+        </ng-template>
+      </div>
+    </div>
+  </nav>
+  

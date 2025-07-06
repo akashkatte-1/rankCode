@@ -1,0 +1,117 @@
+<div class="profile-container">
+  <h1 class="profile-title">
+    Your Profile
+  </h1>
+
+  <div *ngIf="message"
+    [class]="'message-box ' + (messageType === 'success' ? 'message-success' : 'message-error')">
+    {{ message }}
+  </div>
+
+  <ng-container *ngIf="user; else notLoggedIn">
+    <div class="profile-sections-grid">
+      <!-- Personal Information Section -->
+      <div class="info-section">
+        <h2 class="section-title">Personal Information</h2>
+        <div class="form-group-spacing">
+          <div>
+            <label class="form-label">Username:</label>
+            <ng-container *ngIf="editMode; else displayUsername">
+              <input
+                type="text"
+                name="username"
+                [(ngModel)]="formData.username"
+                class="form-input"
+                aria-label="Username"
+              />
+            </ng-container>
+            <ng-template #displayUsername>
+              <p class="display-text">{{ user.username }}</p>
+            </ng-template>
+          </div>
+          <div>
+            <label class="form-label">Email:</label>
+            <ng-container *ngIf="editMode; else displayEmail">
+              <input
+                type="email"
+                name="email"
+                [(ngModel)]="formData.email"
+                class="form-input"
+                aria-label="Email"
+              />
+            </ng-container>
+            <ng-template #displayEmail>
+              <p class="display-text">{{ user.email }}</p>
+            </ng-template>
+          </div>
+          <div>
+            <label class="form-label">Role:</label>
+            <p class="display-text capitalize-text">{{ user.role }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coding Stats Section -->
+      <div class="stats-section">
+        <h2 class="section-title">Coding Stats</h2>
+        <div class="form-group-spacing">
+          <div class="stat-item">
+            <label class="stat-label">Level:</label>
+            <p class="stat-value purple-text">{{ user.level }}</p>
+          </div>
+          <div class="stat-item">
+            <label class="stat-label">Experience Points (XP):</label>
+            <p class="stat-value indigo-text">{{ user.xp }} XP</p>
+          </div>
+          <!-- Add more stats like problems solved, badges, etc. -->
+          <div class="achievements-card">
+            <h3 class="achievements-title">Achievements</h3>
+            <ul class="achievements-list">
+              <li>First Accepted Solution <span class="checkmark">&#10003;</span></li>
+              <li>Solved 10 Easy Problems <span class="checkmark">&#10003;</span></li>
+              <li>Top 100 on Two Sum Leaderboard<span class="checkmark">&#10003;</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons-container">
+      <ng-container *ngIf="editMode; else editButton">
+        <button
+          (click)="handleSave()"
+          class="button-primary"
+        >
+          Save Changes
+        </button>
+        <button
+          (click)="cancelEdit()"
+          class="button-secondary"
+        >
+          Cancel
+        </button>
+      </ng-container>
+      <ng-template #editButton>
+        <button
+          (click)="setEditMode(true)"
+          class="button-edit-profile"
+        >
+          Edit Profile
+        </button>
+      </ng-template>
+    </div>
+  </ng-container>
+
+  <ng-template #notLoggedIn>
+    <div class="not-logged-in-message">
+      <p class="mb-4">You need to be logged in to view your profile.</p>
+      <button
+        (click)="login()"
+        class="button-go-to-login"
+      >
+        Go to Login
+      </button>
+    </div>
+  </ng-template>
+</div>

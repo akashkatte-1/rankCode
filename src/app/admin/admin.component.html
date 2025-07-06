@@ -1,0 +1,166 @@
+<div class="admin-container">
+    <h1 class="admin-title">Admin Dashboard</h1>
+  
+    <div class="section-card">
+      <h2 class="section-header">Add New Problem</h2>
+      <form (ngSubmit)="addProblem()" class="form-grid">
+        <div class="form-group">
+          <label for="new-title" class="form-label">Title<span class="required-star">*</span>:</label>
+          <input type="text" id="new-title" [(ngModel)]="newProblem.title" name="newTitle" required class="form-input">
+        </div>
+        <div class="form-group col-span-2">
+          <label for="new-description" class="form-label">Description<span class="required-star">*</span>:</label>
+          <textarea id="new-description" [(ngModel)]="newProblem.description" name="newDescription" required rows="5" class="form-textarea"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="new-input-format" class="form-label">Input Format:</label>
+          <input type="text" id="new-input-format" [(ngModel)]="newProblem.input_format" name="newInputFormat" class="form-input">
+        </div>
+        <div class="form-group">
+          <label for="new-output-format" class="form-label">Output Format:</label>
+          <input type="text" id="new-output-format" [(ngModel)]="newProblem.output_format" name="newOutputFormat" class="form-input">
+        </div>
+        <div class="form-group">
+          <label for="new-difficulty" class="form-label">Difficulty<span class="required-star">*</span>:</label>
+          <select id="new-difficulty" [(ngModel)]="newProblem.difficulty" name="newDifficulty" required class="form-select">
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="new-sample-input" class="form-label">Sample Input:</label>
+          <textarea id="new-sample-input" [(ngModel)]="newProblem.sample_input" name="newSampleInput" rows="3" class="form-textarea"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="new-sample-output" class="form-label">Sample Output:</label>
+          <textarea id="new-sample-output" [(ngModel)]="newProblem.sample_output" name="newSampleOutput" rows="3" class="form-textarea"></textarea>
+        </div>
+        <div class="form-group col-span-2">
+          <label for="new-tag-input" class="form-label">Tags (press Enter to add):</label>
+          <div class="tag-input-container">
+            <input type="text" id="new-tag-input" [(ngModel)]="tagInput" name="newTagInput" (keyup.enter)="addTag()" class="form-input tag-input-field" placeholder="Add a tag">
+            <button type="button" (click)="addTag()" class="add-tag-button">Add</button>
+          </div>
+          <div class="tag-display-container">
+            <span *ngFor="let tag of newProblem.tags" class="tag-item">
+              {{ tag }}
+              <button type="button" (click)="removeTag(tag)" class="remove-tag-button">&times;</button>
+            </span>
+          </div>
+        </div>
+        <div class="form-action-buttons col-span-2">
+          <button type="submit" class="button-add-problem">Add Problem</button>
+          <button type="button" (click)="resetNewProblemForm()" class="button-reset-form">Reset</button>
+        </div>
+      </form>
+    </div>
+  
+    <hr class="section-divider">
+  
+    <div class="section-card">
+      <h2 class="section-header">Manage Existing Problems</h2>
+      <div *ngIf="loading" class="message-center-text">
+        <div class="loading-spinner"></div>
+        Loading problems...
+      </div>
+  
+      <div *ngIf="error" class="error-message-text">
+        {{ error }}
+      </div>
+  
+      <div *ngIf="!loading && !error && problems.length > 0" class="table-responsive">
+        <table class="problems-table">
+          <thead>
+            <tr class="table-header-bg">
+              <th class="table-header-cell rounded-top-left">Title</th>
+              <th class="table-header-cell">Difficulty</th>
+              <th class="table-header-cell">Tags</th>
+              <th class="table-header-cell rounded-top-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="table-body-divider">
+            <ng-container *ngFor="let problem of problems">
+              <tr *ngIf="editProblemId !== problem.id" class="table-row-hover">
+                <td class="table-cell-text">{{ problem.title }}</td>
+                <td class="table-cell-text">
+                  <span [class]="'difficulty-badge ' + (problem.difficulty === 'Easy' ? 'status-easy' : problem.difficulty === 'Medium' ? 'status-medium' : 'status-hard')">
+                    {{ problem.difficulty }}
+                  </span>
+                </td>
+                <td class="table-cell-tags">
+                  <span *ngFor="let tag of problem.tags" class="tag-item small-tag">{{ tag }}</span>
+                </td>
+                <td class="table-cell-actions">
+                  <button (click)="startEdit(problem)" class="action-button edit-button">Edit</button>
+                  <button (click)="deleteProblem(problem.id)" class="action-button delete-button">Delete</button>
+                </td>
+              </tr>
+              <tr *ngIf="editProblemId === problem.id">
+                <td colspan="4" class="edit-form-cell">
+                  <div class="edit-form-container">
+                    <h3 class="edit-form-title">Edit Problem: {{ editedProblem?.title }}</h3>
+                    <form (ngSubmit)="saveEdit()" class="form-grid">
+                      <div class="form-group">
+                        <label for="edit-title" class="form-label">Title<span class="required-star">*</span>:</label>
+                        <input type="text" id="edit-title" [(ngModel)]="editedProblem!.title" name="editTitle" required class="form-input">
+                      </div>
+                      <div class="form-group col-span-2">
+                        <label for="edit-description" class="form-label">Description<span class="required-star">*</span>:</label>
+                        <textarea id="edit-description" [(ngModel)]="editedProblem!.description" name="editDescription" required rows="5" class="form-textarea"></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="edit-input-format" class="form-label">Input Format:</label>
+                        <input type="text" id="edit-input-format" [(ngModel)]="editedProblem!.input_format" name="editInputFormat" class="form-input">
+                      </div>
+                      <div class="form-group">
+                        <label for="edit-output-format" class="form-label">Output Format:</label>
+                        <input type="text" id="edit-output-format" [(ngModel)]="editedProblem!.output_format" name="editOutputFormat" class="form-input">
+                      </div>
+                      <div class="form-group">
+                        <label for="edit-difficulty" class="form-label">Difficulty<span class="required-star">*</span>:</label>
+                        <select id="edit-difficulty" [(ngModel)]="editedProblem!.difficulty" name="editDifficulty" required class="form-select">
+                          <option value="Easy">Easy</option>
+                          <option value="Medium">Medium</option>
+                          <option value="Hard">Hard</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="edit-sample-input" class="form-label">Sample Input:</label>
+                        <textarea id="edit-sample-input" [(ngModel)]="editedProblem!.sample_input" name="editSampleInput" rows="3" class="form-textarea"></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="edit-sample-output" class="form-label">Sample Output:</label>
+                        <textarea id="edit-sample-output" [(ngModel)]="editedProblem!.sample_output" name="editSampleOutput" rows="3" class="form-textarea"></textarea>
+                      </div>
+                      <div class="form-group col-span-2">
+                        <label for="edit-tag-input" class="form-label">Tags (press Enter to add):</label>
+                        <div class="tag-input-container">
+                          <input type="text" id="edit-tag-input" [(ngModel)]="tagInput" name="editTagInput" (keyup.enter)="addEditTag()" class="form-input tag-input-field" placeholder="Add a tag">
+                          <button type="button" (click)="addEditTag()" class="add-tag-button">Add</button>
+                        </div>
+                        <div class="tag-display-container">
+                          <span *ngFor="let tag of editedProblem!.tags" class="tag-item">
+                            {{ tag }}
+                            <button type="button" (click)="removeEditTag(tag)" class="remove-tag-button">&times;</button>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="form-action-buttons col-span-2">
+                        <button type="submit" class="button-save-changes">Save Changes</button>
+                        <button type="button" (click)="cancelEdit()" class="button-cancel-edit">Cancel</button>
+                      </div>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+  
+      <div *ngIf="!loading && !error && problems.length === 0" class="message-center-text no-problems-message">
+        No problems found. Start by adding a new one!
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,91 @@
+<div class="problem-detail-container">
+    <button (click)="goToProblems()" class="back-button">
+      &larr; Back to Problems
+    </button>
+  
+    <div *ngIf="loading" class="message-center-text">
+      <div class="loading-spinner"></div>
+      Loading problem details...
+    </div>
+  
+    <div *ngIf="error" class="error-message-text">
+      {{ error }}
+    </div>
+  
+    <div *ngIf="!loading && !error && problem" class="problem-content-grid">
+      <div class="problem-description-section">
+        <div class="problem-header">
+          <h1 class="problem-title">{{ problem.title }}</h1>
+          <span [class]="'difficulty-badge ' + getDifficultyClass(problem.difficulty)">
+            {{ problem.difficulty }}
+          </span>
+        </div>
+  
+        <div class="tags-container">
+          <span *ngFor="let tag of problem.tags" class="tag-item">{{ tag }}</span>
+        </div>
+  
+        <div class="markdown-content" [innerHTML]="problem.description | markdownToHtml"></div>
+  
+        <h3 class="section-sub-title">Input Format</h3>
+        <pre class="code-block">{{ problem.input_format }}</pre>
+  
+        <h3 class="section-sub-title">Output Format</h3>
+        <pre class="code-block">{{ problem.output_format }}</pre>
+  
+        <ng-container *ngIf="problem.sample_input && problem.sample_output">
+          <h3 class="section-sub-title">Sample Input</h3>
+          <pre class="code-block">{{ problem.sample_input }}</pre>
+  
+          <h3 class="section-sub-title">Sample Output</h3>
+          <pre class="code-block">{{ problem.sample_output }}</pre>
+        </ng-container>
+      </div>
+  
+      <div class="code-editor-section">
+        <div class="editor-header">
+          <label for="language-select" class="editor-label">Language:</label>
+          <select id="language-select" [(ngModel)]="selectedLanguage" (change)="onLanguageChange()" class="language-select">
+            <option value="python">Python</option>
+            <option value="java">Java</option>
+            <option value="javascript">JavaScript</option>
+          </select>
+        </div>
+  
+        <textarea
+          [(ngModel)]="userCode"
+          placeholder="Write your code here..."
+          rows="15"
+          class="code-textarea"
+        ></textarea>
+  
+        <h3 class="section-sub-title">Custom Input (Optional)</h3>
+        <textarea
+          [(ngModel)]="inputTestCase"
+          placeholder="Enter custom input for testing (e.g., [1,2,3]\n5)"
+          rows="4"
+          class="input-textarea"
+        ></textarea>
+  
+        <div class="editor-actions">
+          <button (click)="runCode()" [disabled]="executionStatus === 'running' || submissionStatus === 'submitting'" class="action-button run-button">
+            <span *ngIf="executionStatus === 'running'" class="button-spinner"></span>
+            {{ executionStatus === 'running' ? 'Running...' : 'Run Code' }}
+          </button>
+          <button (click)="submitCode()" [disabled]="submissionStatus === 'submitting' || executionStatus === 'running'" class="action-button submit-button">
+            <span *ngIf="submissionStatus === 'submitting'" class="button-spinner"></span>
+            {{ submissionStatus === 'submitting' ? 'Submitting...' : 'Submit' }}
+          </button>
+        </div>
+  
+        <div *ngIf="outputResult" class="output-console">
+          <h3 class="section-sub-title">Output Console</h3>
+          <pre class="output-text">{{ outputResult }}</pre>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="!loading && !error && !problem" class="message-center-text">
+      Problem not found.
+    </div>
+  </div>

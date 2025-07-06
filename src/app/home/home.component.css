@@ -1,0 +1,584 @@
+/* src/app/pages/home/home.component.css */
+
+/* General Page Layout */
+:host {
+    display: block;
+    padding: 2.5rem;
+    max-width: 1400px; /* Wider content area */
+    margin: 0 auto;
+    background-color: #f0f4f8; /* Softer background */
+    border-radius: 1rem;
+    box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.15), 0 6px 12px -3px rgba(0, 0, 0, 0.08);
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+/* Header/Navbar Styles */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2.5rem;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 2.5rem; /* Space below header */
+    border-radius: 0.75rem; /* Match page rounded corners */
+}
+
+.header-logo {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #6d28d9;
+    text-decoration: none;
+}
+
+.header-nav-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-link {
+    color: #4a5568;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+}
+.nav-link:hover {
+    background-color: #f3e8ff;
+    color: #6d28d9;
+}
+.nav-link.active {
+    background-color: #8b5cf6;
+    color: #ffffff;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4a5568;
+}
+.icon-button:hover {
+    background-color: #e0e7ff;
+    color: #6d28d9;
+}
+
+.profile-icon, .notification-icon {
+    width: 1.5rem; /* Adjust size as needed */
+    height: 1.5rem;
+}
+
+.profile-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #8b5cf6;
+}
+
+
+/* Dashboard Container */
+.home-dashboard-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem; /* Consistent spacing between main sections */
+}
+
+/* Main Dashboard Grid (Welcome + Daily Challenge) */
+.dashboard-grid-main {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+@media (min-width: 1024px) { /* lg:grid-cols-2 */
+    .dashboard-grid-main {
+        grid-template-columns: 1.5fr 1fr; /* Welcome card takes more space */
+    }
+}
+
+/* Welcome Card */
+.welcome-card {
+    background: linear-gradient(135deg, #6d28d9, #8b5cf6); /* Vibrant gradient */
+    color: #ffffff;
+    padding: 3rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-title {
+    font-size: 2.5rem; /* text-4xl */
+    font-weight: 800;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+@media (min-width: 768px) {
+    .welcome-title {
+        font-size: 3.5rem; /* md:text-5xl */
+    }
+}
+
+.welcome-subtitle {
+    font-size: 1.125rem; /* text-lg */
+    margin-bottom: 2rem;
+    opacity: 0.9;
+    max-width: 500px;
+}
+
+.welcome-cta-button {
+    background-color: #ffffff;
+    color: #6d28d9;
+    padding: 0.8rem 2rem;
+    border-radius: 9999px;
+    font-size: 1rem;
+    font-weight: 700;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    border: none;
+    cursor: pointer;
+}
+.welcome-cta-button:hover {
+    background-color: #f3e8ff;
+}
+
+/* Daily Challenge Card */
+.daily-challenge-card {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-heading {
+    font-size: 1.75rem; /* text-2xl */
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 0.75rem;
+}
+
+.daily-challenge-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.challenge-title {
+    font-size: 1.5rem; /* text-xl */
+    font-weight: 700;
+    color: #4c1d95; /* Deeper purple */
+    margin-bottom: 0.75rem;
+}
+
+.challenge-description {
+    font-size: 0.9375rem;
+    color: #4a5568;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.challenge-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.challenge-difficulty {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.challenge-difficulty.easy {
+    background-color: #d1fae5; /* bg-green-100 */
+    color: #065f46; /* text-green-800 */
+}
+.challenge-difficulty.medium {
+    background-color: #fef3c7; /* bg-yellow-100 */
+    color: #92400e; /* text-yellow-800 */
+}
+.challenge-difficulty.hard {
+    background-color: #fee2e2; /* bg-red-100 */
+    color: #991b1b; /* text-red-800 */
+}
+
+.challenge-tags {
+    background-color: #e0e7ff; /* bg-indigo-100 */
+    color: #4338ca; /* text-indigo-800 */
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.solve-challenge-button {
+    width: 100%;
+    background-color: #8b5cf6;
+    color: #ffffff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.solve-challenge-button:hover {
+    background-color: #7c3aed;
+}
+
+
+/* General Section Card Styling */
+.section-card {
+    background-color: #ffffff;
+    padding: 2.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+}
+
+/* Section Headings (reused for consistency) */
+.section-heading {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1a202c;
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+    background: linear-gradient(45deg, #6d28d9, #8b5cf6, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.section-heading::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(to right, #8b5cf6, #c084fc);
+    margin: 0.75rem auto 0;
+    border-radius: 2px;
+}
+
+/* Contest Grid */
+.contest-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+@media (min-width: 768px) {
+    .contest-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.contest-card {
+    background-color: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e2e8f0;
+}
+.contest-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.contest-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #1a202c;
+    margin-bottom: 0.5rem;
+}
+
+.contest-description {
+    font-size: 0.875rem;
+    color: #4a5568;
+    margin-bottom: 1rem;
+}
+
+.contest-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #64748b;
+    margin-bottom: 1rem;
+}
+
+.contest-button {
+    width: 100%;
+    background-color: #8b5cf6;
+    color: #ffffff;
+    padding: 0.625rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+}
+.contest-button:hover {
+    background-color: #7c3aed;
+}
+
+/* Problem Card Grid (for Recommended Problems) */
+.problem-card-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+@media (min-width: 768px) {
+    .problem-card-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.problem-card {
+    background-color: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e2e8f0;
+}
+.problem-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.problem-card-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #1a202c;
+    margin-bottom: 0.5rem;
+}
+
+.problem-card-description {
+    font-size: 0.875rem;
+    color: #4a5568;
+    margin-bottom: 1rem;
+}
+
+.problem-card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.problem-card-difficulty {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.problem-card-difficulty.easy {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+.problem-card-difficulty.medium {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+.problem-card-difficulty.hard {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.problem-card-tags {
+    background-color: #e0e7ff;
+    color: #4338ca;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.problem-card-button {
+    width: 100%;
+    background-color: #8b5cf6;
+    color: #ffffff;
+    padding: 0.625rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+}
+.problem-card-button:hover {
+    background-color: #7c3aed;
+}
+
+/* Your Progress/Stats Section */
+.progress-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    text-align: center;
+}
+@media (min-width: 640px) {
+    .progress-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (min-width: 1024px) {
+    .progress-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.progress-item {
+    background-color: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e2e8f0;
+}
+.progress-item:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.progress-value {
+    font-size: 2.5rem; /* text-4xl */
+    font-weight: 700;
+    color: #6d28d9; /* Deep purple */
+    margin-bottom: 0.5rem;
+}
+
+.progress-label {
+    font-size: 0.9375rem;
+    color: #4a5568;
+}
+
+/* View All Buttons (reused) */
+.view-all-button-container {
+    text-align: center;
+    margin-top: 2.5rem;
+}
+
+.view-all-button {
+    background: linear-gradient(45deg, #8b5cf6, #c084fc);
+    color: #ffffff;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    border: none;
+    cursor: pointer;
+}
+.view-all-button:hover {
+    background: linear-gradient(45deg, #7c3aed, #a78bfa); /* Slightly darker gradient on hover */
+}
+
+/* Footer Styles */
+.main-footer {
+    background-color: #1a202c; /* Dark background */
+    color: #e2e8f0; /* Light text */
+    padding: 2.5rem;
+    border-top: 1px solid #2d3748;
+    border-radius: 0.75rem; /* Match page rounded corners */
+    margin-top: 2.5rem; /* Space above footer */
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+@media (min-width: 768px) {
+    .footer-content {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.footer-section {
+    text-align: center;
+}
+@media (min-width: 768px) {
+    .footer-section {
+        text-align: left;
+    }
+}
+
+.footer-heading {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #8b5cf6; /* Purple heading */
+    margin-bottom: 1rem;
+}
+
+.footer-text {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #a0aec0;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.footer-links li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-link {
+    color: #e2e8f0;
+    text-decoration: none;
+    font-size: 0.9375rem;
+}
+.footer-link:hover {
+    color: #c084fc; /* Lighter purple on hover */
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #4a5568;
+}
+
+.copyright-text {
+    font-size: 0.8125rem;
+    color: #a0aec0;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+.social-icons a {
+    color: #e2e8f0;
+    margin: 0 0.5rem;
+    font-size: 1.25rem;
+}
+.social-icons a:hover {
+    color: #c084fc; /* Lighter purple on hover */
+}

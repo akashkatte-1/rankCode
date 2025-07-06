@@ -1,0 +1,105 @@
+<div class="problems-container">
+    <h1 class="problems-title">Coding Problems</h1>
+  
+    <div class="filters-container">
+      <div class="filter-group">
+        <label for="difficulty" class="filter-label">Difficulty:</label>
+        <select
+          id="difficulty"
+          name="difficulty"
+          [(ngModel)]="filters.difficulty"
+          (change)="handleFilterChange()"
+          class="filter-select"
+        >
+          <option value="All">All</option>
+          <option value="Easy">Easy</option>
+          <option value="Medium">Medium</option>
+          <option value="Hard">Hard</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="tag" class="filter-label">Tag:</label>
+        <select
+          id="tag"
+          name="tag"
+          [(ngModel)]="filters.tag"
+          (change)="handleFilterChange()"
+          class="filter-select"
+        >
+          <option value="All">All</option>
+          <option *ngFor="let tag of allTags" [value]="tag">{{ tag }}</option>
+        </select>
+      </div>
+      <div class="filter-group flex-grow">
+        <label for="search" class="filter-label">Search:</label>
+        <input
+          type="text"
+          id="search"
+          name="search"
+          [(ngModel)]="filters.search"
+          (input)="handleFilterChange()"
+          placeholder="Search by title or description..."
+          class="filter-input"
+        />
+      </div>
+    </div>
+  
+    <div *ngIf="loading" class="message-center-text">
+      <div class="loading-spinner"></div>
+      Loading problems...
+    </div>
+  
+    <div *ngIf="error" class="error-message-text">
+      {{ error }}
+    </div>
+  
+    <div *ngIf="!loading && !error && currentProblems.length > 0" class="table-responsive">
+      <table class="problems-table">
+        <thead>
+          <tr class="table-header-bg">
+            <th class="table-header-cell rounded-top-left">Title</th>
+            <th class="table-header-cell">Difficulty</th>
+            <th class="table-header-cell">Tags</th>
+            <th class="table-header-cell rounded-top-right">Action</th>
+          </tr>
+        </thead>
+        <tbody class="table-body-divider">
+          <tr *ngFor="let problem of currentProblems" class="table-row-hover">
+            <td class="table-cell-problem-title" (click)="solveProblem(problem.id)">
+              {{ problem.title }}
+            </td>
+            <td class="table-cell-text">
+              <span [class]="'difficulty-badge ' + getDifficultyColor(problem.difficulty)">
+                {{ problem.difficulty }}
+              </span>
+            </td>
+            <td class="table-cell-tags">
+              <span *ngFor="let tag of problem.tags" class="tag-badge">{{ tag }}</span>
+            </td>
+            <td class="table-cell-actions">
+              <button
+                (click)="solveProblem(problem.id)"
+                class="solve-button"
+              >
+                Solve
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div *ngIf="!loading && !error && filteredProblems.length === 0" class="message-center-text no-results-message">
+      No problems found matching your criteria.
+    </div>
+  
+    <div *ngIf="totalPages > 1" class="pagination-controls">
+      <button
+        *ngFor="let pageNum of getPageNumbers()"
+        (click)="paginate(pageNum)"
+        [class]="'pagination-button ' + (currentPageNum === pageNum ? 'active' : '')"
+      >
+        {{ pageNum }}
+      </button>
+    </div>
+  </div>

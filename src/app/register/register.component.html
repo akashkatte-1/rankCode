@@ -1,0 +1,65 @@
+<!-- src/app/pages/register/register.component.html -->
+<canvas #backgroundCanvas id="backgroundCanvas"></canvas>
+
+<section class="register-container">
+    <div class="register-form-card">
+        <div class="text-center">
+            <h2 class="form-title">
+                Create a new account
+            </h2>
+            <p class="form-subtitle">
+                Or <a routerLink="/login" class="register-link">sign in to an existing account</a>
+            </p>
+        </div>
+        <form class="register-form" (ngSubmit)="onRegister()">
+            <div class="input-group">
+                <div>
+                    <label for="username" class="sr-only">Username</label>
+                    <input id="username" name="username" type="text" autocomplete="username" required
+                        class="input-field-top"
+                        placeholder="Username" [(ngModel)]="username">
+                </div>
+                <div>
+                    <label for="email-address-reg" class="sr-only">Email address</label>
+                    <input id="email-address-reg" name="email" type="email" autocomplete="email" required
+                        class="input-field-middle"
+                        placeholder="Email address" [(ngModel)]="email">
+                </div>
+                <div>
+                    <label for="password-reg" class="sr-only">Password</label>
+                    <input id="password-reg" name="password" type="password" autocomplete="new-password" required
+                        class="input-field-middle"
+                        placeholder="Password" [(ngModel)]="password">
+                </div>
+                <div>
+                    <label for="confirm-password" class="sr-only">Confirm Password</label>
+                    <input id="confirm-password" name="confirmPassword" type="password" autocomplete="new-password" required
+                        class="input-field-bottom"
+                        placeholder="Confirm Password" [(ngModel)]="confirmPassword">
+                </div>
+            </div>
+
+            <!-- Error Message Display -->
+            <div *ngIf="errorMessage" class="error-message">
+                {{ errorMessage }}
+            </div>
+
+            <div>
+                <button type="submit" class="submit-button">
+                    Register Account
+                </button>
+            </div>
+
+            <!-- Google Signup Option -->
+            <div class="social-login-divider">
+                <span class="divider-text">OR</span>
+            </div>
+            <div>
+                <button type="button" (click)="onGoogleRegister()" class="google-button">
+                    <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google logo" class="google-icon">
+                    Sign up with Google
+                </button>
+            </div>
+        </form>
+    </div>
+</section>

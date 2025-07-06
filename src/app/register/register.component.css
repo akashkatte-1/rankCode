@@ -1,0 +1,229 @@
+/* src/app/pages/register/register.component.css */
+
+/* Base styles for Inter font (can also be in global styles.css) */
+body {
+    font-family: 'Inter', sans-serif;
+    overflow: hidden; /* Prevent scrollbars due to canvas positioning */
+    margin: 0;
+    padding: 0;
+}
+
+/* Canvas for background simulation - similar to login page */
+#backgroundCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-color: #f0f4f8;
+}
+
+/* Ensure the form container is centered and has appropriate spacing */
+.register-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* Styles for the main box containing the form - similar to login-form-card */
+.register-form-card {
+    max-width: 28rem;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    border: 1px solid #e5e7eb;
+}
+
+/* Styles for the form */
+.register-form {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Styles for the form title */
+.form-title {
+    margin-top: 1.5rem;
+    font-size: 1.875rem;
+    font-weight: 800;
+    color: #1a202c;
+}
+
+/* Styles for the form subtitle */
+.form-subtitle {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: #4a5568;
+}
+
+/* Styles for the sign-in link */
+.register-link { /* Reusing register-link class name for consistency */
+    font-weight: 500;
+    color: #8b5cf6;
+    text-decoration: none;
+    cursor:pointer;
+}
+.register-link:hover {
+    color: #a78bfa;
+}
+
+/* Styles for the input fields group */
+.input-group {
+    border-radius: 0.375rem;
+    /* box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); */
+}
+
+/* Specific styles for the top input field (username) */
+.input-field-top {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    position: relative;
+    display: block;
+    width: 94%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #d1d5db;
+    color: #111827;
+    outline: none;
+    /* box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.5); */
+    border-color: #8b5cf6;
+    z-index: 10;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    border-radius: 0;
+    border-top-left-radius: 0.375rem;
+    border-top-right-radius: 0.375rem;
+    margin-bottom: -1px;
+}
+
+/* Specific styles for middle input fields (email, password) */
+.input-field-middle {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    position: relative;
+    display: block;
+    width: 94%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #d1d5db;
+    color: #111827;
+    outline: none;
+    /* box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.5); */
+    border-color: #8b5cf6;
+    z-index: 10;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    border-radius: 0;
+    margin-bottom: -1px;
+}
+
+/* Specific styles for the bottom input field (confirm password) */
+.input-field-bottom {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    position: relative;
+    display: block;
+    width: 94%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #d1d5db;
+    color: #111827;
+    outline: none;
+    /* box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.5); */
+    border-color: #8b5cf6;
+    z-index: 10;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    border-radius: 0;
+    border-bottom-left-radius: 0.375rem;
+    border-bottom-right-radius: 0.375rem;
+}
+
+/* Styles for error message */
+.error-message {
+    color: #dc2626;
+    font-size: 0.875rem;
+    text-align: center;
+}
+
+/* Styles for the Register Account button - similar to submit-button */
+.submit-button {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    border: 1px solid transparent;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 0.375rem;
+    color: #ffffff;
+    background-color: #9333ea;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: background-color 300ms ease, box-shadow 300ms ease;
+    outline: none;
+}
+.submit-button:hover {
+    background-color: #7e22ce;
+}
+.submit-button:focus {
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.5), 0 0 0 6px rgba(139, 92, 246, 0.2);
+}
+
+/* Social login divider - same as login page */
+.social-login-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+.social-login-divider::before,
+.social-login-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #e2e8f0;
+}
+.divider-text {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 0.875rem;
+    color: #4a5568;
+}
+
+/* Google button - same as login page */
+.google-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    background-color: #ffffff;
+    color: #1a202c;
+    font-weight: 500;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    transition: background-color 0.2s ease-in-out;
+    outline: none;
+}
+.google-button:hover {
+    background-color: #f7fafc;
+}
+.google-button:focus {
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.5);
+}
+
+.google-icon {
+    height: 1.25rem;
+    width: 1.25rem;
+    margin-right: 0.5rem;
+}

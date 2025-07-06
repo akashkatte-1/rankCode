@@ -1,0 +1,380 @@
+/* src/app/pages/login/login.component.css */
+
+/* Base styles for Inter font (can also be in global styles.css) */
+/* These are typically in a global stylesheet like styles.css */
+body {
+    font-family: 'Inter', sans-serif;
+    overflow: hidden; /* Prevent scrollbars due to canvas positioning */
+    margin: 0;
+    padding: 0;
+}
+
+/* Canvas for background simulation */
+#backgroundCanvas {
+    position: fixed; /* Fixes the canvas to the viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Puts the canvas behind other content */
+    background-color: #f0f4f8; /* Fallback background color */
+}
+
+/* Ensure the form container is centered and has appropriate spacing */
+.login-container {
+    min-height: 100vh; /* Full viewport height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem; /* Responsive padding */
+    position: relative; /* Needed for z-index to work correctly with canvas */
+    z-index: 1; /* Ensures the login form is above the canvas */
+}
+
+/* Styles for the main box containing the form */
+.login-form-card {
+    max-width: 28rem; /* max-w-md */
+    width: 100%; /* w-full */
+    background-color: #ffffff; /* bg-white */
+    padding: 2rem; /* p-8 */
+    border-radius: 0.5rem; /* rounded-lg */
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); /* shadow-xl */
+    border: 1px solid #e5e7eb; /* border border-gray-200 */
+}
+
+/* Styles for the form */
+.login-form {
+    margin-top: 2rem; /* mt-8 */
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* space-y-6 */
+}
+
+/* Styles for the form title */
+.form-title {
+    margin-top: 1.5rem; /* mt-6 */
+    font-size: 1.875rem; /* text-3xl */
+    font-weight: 800; /* font-extrabold */
+    color: #1a202c; /* text-gray-900 */
+}
+
+/* Styles for the form subtitle */
+.form-subtitle {
+    margin-top: 0.5rem; /* mt-2 */
+    font-size: 0.875rem; /* text-sm */
+    color: #4a5568; /* text-gray-600 */
+}
+
+/* Styles for the register link */
+.register-link {
+    font-weight: 500; /* font-medium */
+    color: #8b5cf6; /* text-purple-600 */
+    text-decoration: none;
+    cursor: pointer;
+}
+.register-link:hover {
+    color: #a78bfa; /* hover:text-purple-500 */
+}
+
+/* Styles for the input fields container */
+.input-group {
+    border-radius: 0.375rem; /* rounded-md */
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+}
+
+/* Specific styles for the top input field (email) */
+.input-field-top {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    position: relative;
+    display: block;
+    width: 94%; /* w-full */
+    padding: 0.5rem 0.75rem; /* px-3 py-2 */
+    border: 1px solid #d1d5db; /* border border-gray-300 */
+    color: #111827; /* text-gray-900 */
+    outline: none; /* focus:outline-none */
+    /* box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.5); focus:ring-purple-500 */
+    border-color: #8b5cf6; /* focus:border-purple-500 */
+    z-index: 10; /* focus:z-10 */
+    font-size: 0.875rem; /* sm:text-sm */
+    line-height: 1.25rem;
+    border-radius: 0; /* rounded-none */
+    border-top-left-radius: 0.375rem; /* rounded-t-md */
+    border-top-right-radius: 0.375rem; /* rounded-t-md */
+    margin-bottom: -1px; /* To make them visually connect */
+}
+
+/* Specific styles for the bottom input field (password) */
+.input-field-bottom {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    position: relative;
+    display: block;
+    width: 94%; /* w-full */
+    padding: 0.5rem 0.75rem; /* px-3 py-2 */
+    border: 1px solid #d1d5db; /* border border-gray-300 */
+    color: #111827; /* text-gray-900 */
+    outline: none; /* focus:outline-none */
+    /* box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.5); focus:ring-purple-500 */
+    border-color: #8b5cf6; /* focus:border-purple-500 */
+    z-index: 10; /* focus:z-10 */
+    font-size: 0.875rem; /* sm:text-sm */
+    line-height: 1.25rem;
+    border-radius: 0; /* rounded-none */
+    border-bottom-left-radius: 0.375rem; /* rounded-b-md */
+    border-bottom-right-radius: 0.375rem; /* rounded-b-md */
+}
+
+/* Styles for error message */
+.error-message {
+    color: #dc2626; /* text-red-600 */
+    font-size: 0.875rem; /* text-sm */
+    text-align: center; /* text-center */
+}
+
+/* Styles for remember me and forgot password row */
+.form-options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Styles for remember me checkbox container */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+}
+
+/* Styles for remember me checkbox input */
+.checkbox-input {
+    height: 1rem; /* h-4 */
+    width: 1rem; /* w-4 */
+    color: #8b5cf6; /* text-purple-600 */
+    border-color: #d1d5db; /* border-gray-300 */
+    border-radius: 0.25rem; /* rounded */
+}
+.checkbox-input:focus {
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.5); /* focus:ring-purple-500 */
+}
+
+/* Styles for remember me label */
+.checkbox-label {
+    margin-left: 0.5rem; /* ml-2 */
+    display: block;
+    font-size: 0.875rem; /* text-sm */
+    color: #111827; /* text-gray-900 */
+}
+
+/* Styles for forgot password link container */
+.forgot-password-link-container {
+    font-size: 0.875rem; /* text-sm */
+}
+
+/* Styles for forgot password link */
+.forgot-password-link {
+    font-weight: 500; /* font-medium */
+    color: #8b5cf6; /* text-purple-600 */
+    text-decoration: none;
+}
+.forgot-password-link:hover {
+    color: #a78bfa; /* hover:text-purple-500 */
+}
+
+/* Styles for the Sign in button */
+.submit-button {
+    position: relative;
+    width: 100%; /* w-full */
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem 1rem; /* py-2 px-4 */
+    border: 1px solid transparent; /* border border-transparent */
+    font-size: 0.875rem; /* text-sm */
+    font-weight: 500; /* font-medium */
+    border-radius: 0.375rem; /* rounded-md */
+    color: #ffffff; /* text-white */
+    background-color: #9333ea; /* bg-purple-600 */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+    transition: background-color 300ms ease, box-shadow 300ms ease; /* transition-colors duration-300 */
+    outline: none; /* focus:outline-none */
+}
+.submit-button:hover {
+    background-color: #7e22ce; /* hover:bg-purple-700 */
+}
+.submit-button:focus {
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.5), 0 0 0 6px rgba(139, 92, 246, 0.2); /* focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 */
+}
+
+/* Social login divider */
+.social-login-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-top: 1.5rem; /* mt-6 */
+    margin-bottom: 1.5rem; /* mb-6 */
+}
+.social-login-divider::before,
+.social-login-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #e2e8f0; /* border-gray-300 */
+}
+.divider-text {
+    padding-left: 1rem; /* px-4 */
+    padding-right: 1rem; /* px-4 */
+    font-size: 0.875rem; /* text-sm */
+    color: #4a5568; /* text-gray-600 */
+}
+
+/* Google button */
+.google-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0.5rem 1rem; /* py-2 px-4 */
+    border: 1px solid #d1d5db; /* border border-gray-300 */
+    border-radius: 0.375rem; /* rounded-md */
+    background-color: #ffffff; /* bg-white */
+    color: #1a202c; /* text-gray-900 */
+    font-weight: 500; /* font-medium */
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+    transition: background-color 0.2s ease-in-out;
+    outline: none;
+}
+.google-button:hover {
+    background-color: #f7fafc; /* hover:bg-gray-50 */
+}
+.google-button:focus {
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.5); /* focus:ring-purple-500 */
+}
+
+.google-icon {
+    height: 1.25rem; /* h-5 */
+    width: 1.25rem; /* w-5 */
+    margin-right: 0.5rem; /* mr-2 */
+}
+
+
+/* Styles for the LLM-powered feature button container */
+.llm-button-container {
+    margin-top: 1rem; /* mt-4 */
+}
+
+/* Styles for the "Why CodeSphere?" button */
+.llm-pitch-button {
+    position: relative;
+    width: 100%; /* w-full */
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem 1rem; /* py-2 px-4 */
+    border: 1px solid #9333ea; /* border border-purple-600 */
+    font-size: 0.875rem; /* text-sm */
+    font-weight: 500; /* font-medium */
+    border-radius: 0.375rem; /* rounded-md */
+    color: #9333ea; /* text-purple-600 */
+    background-color: #ffffff; /* bg-white */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+    transition: background-color 300ms ease, box-shadow 300ms ease; /* transition-colors duration-300 */
+    outline: none; /* focus:outline-none */
+}
+.llm-pitch-button:hover {
+    background-color: #f5f3ff; /* hover:bg-purple-50 */
+}
+.llm-pitch-button:focus {
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.5), 0 0 0 6px rgba(139, 92, 246, 0.2); /* focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 */
+}
+
+/* Modal specific styles */
+.modal {
+    display: flex; /* Changed from 'none' to 'flex' for visibility and centering */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 10px 15px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Styles for modal title */
+.modal-title {
+    font-size: 1.875rem; /* text-3xl */
+    font-weight: 700; /* font-bold */
+    color: #1f2937; /* text-gray-800 */
+    margin-bottom: 1rem; /* mb-4 */
+    text-align: center; /* text-center */
+}
+
+/* Styles for text in modal */
+.modal-text-content {
+    color: #374151; /* text-gray-700 */
+    font-size: 1.125rem; /* text-lg */
+    line-height: 1.625; /* leading-relaxed */
+    text-align: center; /* text-center */
+}
+
+/* Styles for loading spinner container */
+.loading-spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 2rem; /* py-8 */
+    padding-bottom: 2rem; /* py-8 */
+}
+
+/* Styles for loading spinner */
+.spinner-animation {
+    animation: spin 1s linear infinite; /* animate-spin */
+    border-radius: 9999px; /* rounded-full */
+    height: 3rem; /* h-12 */
+    width: 3rem; /* w-12 */
+    border-bottom-width: 2px; /* border-b-2 */
+    border-color: #8b5cf6; /* border-purple-500 */
+    border-style: solid;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
