@@ -223,15 +223,3 @@ Use:
 * 📈 **Graph View**: Show problem-solving streak
 * 🎯 **Topic-wise Leaderboard**
 * 💬 **Discussion & Comments**
-
----
-
-## 🔚 Final Thoughts
-
-This structure sets up a **complete HackerRank-like platform**. If you'd like:
-
-* **Full source code generation (Angular + Node.js or Django)**
-* **Database dump or migrations**
-* **Live compiler setup with Docker**
-
-Let me know which stack you're using for backend (Node.js, Flask, Django, etc.), and I’ll generate all the code.

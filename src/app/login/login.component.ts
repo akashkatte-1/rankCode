@@ -1,11 +1,9 @@
-// src/app/pages/login/login.component.ts
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, HostListener, Inject, PLATFORM_ID } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { HttpClient } from '@angular/common/http'; // Import HttpClient for API calls
-import { AuthService } from '../services/auth.service'; // Adjust path for AuthService
+import { HttpClient } from '@angular/common/http'; 
+import { AuthService } from '../services/auth.service'; 
 import { FormsModule } from '@angular/forms';
-import { CommonModule, isPlatformBrowser } from '@angular/common'; // Import isPlatformBrowser
-
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 @Component({
   standalone:true,
   imports:[FormsModule,CommonModule,RouterLink],
@@ -14,17 +12,14 @@ import { CommonModule, isPlatformBrowser } from '@angular/common'; // Import isP
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit, AfterViewInit {
-  // Form properties
   email: string = '';
   password: string = '';
-  errorMessage: string = ''; // To display login errors
+  errorMessage: string = ''; 
 
-  // LLM Modal properties
   isModalVisible: boolean = false;
   isLoadingPitch: boolean = false;
   pitchTextContent: string = '';
 
-  // Canvas properties
   @ViewChild('backgroundCanvas', { static: true }) canvas!: ElementRef<HTMLCanvasElement>;
   private ctx!: CanvasRenderingContext2D;
   private particles: any[] = [];
@@ -34,19 +29,17 @@ export class LoginComponent implements OnInit, AfterViewInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private http: HttpClient, // Inject HttpClient
-    @Inject(PLATFORM_ID) private platformId: Object // Inject PLATFORM_ID
+    private http: HttpClient, 
+    @Inject(PLATFORM_ID) private platformId: Object 
   ) { }
 
   ngOnInit(): void {
-    // Optional: Check if user is already logged in and redirect
     if (this.authService.isLoggedIn()) {
-      this.router.navigate(['/home']); // Redirect to home or problems page
+      this.router.navigate(['/home']); 
     }
   }
 
   ngAfterViewInit(): void {
-    // Initialize canvas only if running in a browser environment
     if (isPlatformBrowser(this.platformId)) {
       this.ctx = this.canvas.nativeElement.getContext('2d')!;
       this.setCanvasDimensions();
@@ -55,50 +48,38 @@ export class LoginComponent implements OnInit, AfterViewInit {
     }
   }
 
-  /**
-   * Handles window resize events to adjust canvas dimensions.
-   * @param event The resize event.
-   */
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
-    // Only execute if running in a browser environment
     if (isPlatformBrowser(this.platformId)) {
       this.setCanvasDimensions();
-      this.initParticles(); // Re-initialize particles on resize for better distribution
+      this.initParticles(); 
     }
   }
 
-  /**
-   * Sets the canvas dimensions to match the window size.
-   */
+ 
   private setCanvasDimensions(): void {
     this.canvas.nativeElement.width = window.innerWidth;
     this.canvas.nativeElement.height = window.innerHeight;
   }
 
-  /**
-   * Initializes the array of particles with random positions, velocities, and radii.
-   */
+ 
   private initParticles(): void {
     this.particles = [];
     for (let i = 0; i < this.numberOfParticles; i++) {
       this.particles.push({
         x: Math.random() * this.canvas.nativeElement.width,
         y: Math.random() * this.canvas.nativeElement.height,
-        vx: (Math.random() - 0.5) * 1, // Small random velocity
+        vx: (Math.random() - 0.5) * 1, 
         vy: (Math.random() - 0.5) * 1,
-        radius: Math.random() * 1.5 + 0.5 // Small random radius
+        radius: Math.random() * 1.5 + 0.5 
       });
     }
   }
 
-  /**
-   * Draws all particles on the canvas.
-   */
+  
   private drawParticles(): void {
-    this.ctx.clearRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height); // Clear canvas for each frame
-    this.ctx.fillStyle = '#6b21a8'; // Purple dots
-
+    this.ctx.clearRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
+    this.ctx.fillStyle = '#6b21a8'; 
     this.particles.forEach(p => {
       this.ctx.beginPath();
       this.ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
@@ -106,15 +87,12 @@ export class LoginComponent implements OnInit, AfterViewInit {
     });
   }
 
-  /**
-   * Updates the position of each particle and handles boundary collisions.
-   */
+ 
   private updateParticles(): void {
     this.particles.forEach(p => {
       p.x += p.vx;
       p.y += p.vy;
 
-      // Bounce off edges
       if (p.x + p.radius > this.canvas.nativeElement.width || p.x - p.radius < 0) {
         p.vx *= -1;
       }
@@ -124,12 +102,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
     });
   }
 
-  /**
-   * Draws lines between particles that are within a certain distance of each other.
-   * Line opacity fades based on distance.
-   */
+  
   private drawConnections(): void {
-    this.ctx.strokeStyle = 'rgba(109, 40, 217, 0.5)'; // Semi-transparent purple lines
+    this.ctx.strokeStyle = 'rgba(109, 40, 217, 0.5)'; 
     for (let i = 0; i < this.particles.length; i++) {
       for (let j = i + 1; j < this.particles.length; j++) {
         const p1 = this.particles[i];
@@ -143,7 +118,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
           this.ctx.beginPath();
           this.ctx.moveTo(p1.x, p1.y);
           this.ctx.lineTo(p2.x, p2.y);
-          // Fade lines based on distance
           this.ctx.strokeStyle = `rgba(109, 40, 217, ${1 - (distance / this.maxDistance)})`;
           this.ctx.stroke();
         }
@@ -151,33 +125,27 @@ export class LoginComponent implements OnInit, AfterViewInit {
     }
   }
 
-  /**
-   * The main animation loop for the canvas background.
-   */
+  
   private animateCanvas(): void {
     this.updateParticles();
     this.drawParticles();
     this.drawConnections();
-    requestAnimationFrame(() => this.animateCanvas()); // Loop indefinitely
+    requestAnimationFrame(() => this.animateCanvas()); 
   }
 
-  /**
-   * Handles the login form submission.
-   * Calls the AuthService to authenticate the user.
-   */
+  
   onLogin(): void {
-    this.errorMessage = ''; // Clear previous errors
+    this.errorMessage = ''; 
 
     if (!this.email || !this.password) {
       this.errorMessage = 'Please enter both email and password.';
       return;
     }
 
-    // Call the authentication service
     this.authService.login(this.email, this.password).subscribe({
       next: (response: any) => {
         console.log('Login successful:', response);
-        this.router.navigate(['/problems']); // Redirect to a protected route
+        this.router.navigate(['/problems']);
       },
       error: (error: any) => {
         console.error('Login failed:', error);
@@ -190,14 +158,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
     });
   }
 
-  /**
-   * Handles login with Google.
-   * NOTE: This is a placeholder. Actual implementation would involve Firebase Authentication
-   * or a similar OAuth flow.
-   */
+ 
   onGoogleLogin(): void {
     console.log('Google Login initiated.');
-    // Example: Call a method in AuthService for Google login
     this.authService.googleLogin().subscribe({
       next: (response: any) => {
         console.log('Google Login successful:', response);
@@ -210,9 +173,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     });
   }
 
-  /**
-   * Shows the LLM pitch modal and triggers the API call to Gemini.
-   */
+ 
   async showPitchModal(): Promise<void> {
     this.isModalVisible = true;
     this.isLoadingPitch = true;
@@ -224,7 +185,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     chatHistory.push({ role: "user", parts: [{ text: prompt }] });
 
     const payload = { contents: chatHistory };
-    const apiKey = ""; // Canvas will provide this at runtime for gemini-2.0-flash
+    const apiKey = ""; 
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
     try {
@@ -256,16 +217,12 @@ export class LoginComponent implements OnInit, AfterViewInit {
     }
   }
 
-  /**
-   * Hides the LLM pitch modal.
-   * @param event Optional: The click event to prevent closing when clicking inside the modal.
-   */
+  
   hidePitchModal(event?: MouseEvent): void {
-    // Only hide if the click is on the modal backdrop, not the content itself
     if (event && event.target !== event.currentTarget) {
       return;
     }
     this.isModalVisible = false;
-    this.pitchTextContent = ''; // Clear content when closing
+    this.pitchTextContent = ''; 
   }
 }

@@ -39,7 +39,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   setEditMode(mode: boolean): void {
     this.editMode = mode;
-    this.message = ''; // Clear messages when entering/exiting edit mode
+    this.message = ''; 
   }
 
   cancelEdit(): void {

@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ProblemService, Problem } from '../services/problem.service'; // Adjust path
+import { ProblemService, Problem } from '../services/problem.service';
 import { Subscription } from 'rxjs';
-import { CommonModule } from '@angular/common'; // Import CommonModule
-import { FormsModule } from '@angular/forms'; // Import FormsModule
+import { CommonModule } from '@angular/common'; 
+import { FormsModule } from '@angular/forms'; 
 
 @Component({
-  standalone: true, // Mark as standalone
-  imports: [CommonModule, FormsModule], // Import CommonModule and FormsModule
+  standalone: true, 
+  imports: [CommonModule, FormsModule], 
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
@@ -69,20 +69,18 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.newProblem.tags = this.newProblem.tags?.filter(t => t !== tag);
   }
 
-  // --- Add Problem Logic ---
   addProblem(): void {
     if (!this.newProblem.title || !this.newProblem.description || !this.newProblem.difficulty) {
       alert('Please fill in all required fields (Title, Description, Difficulty).');
       return;
     }
 
-    // Simulate problem creation (in a real app, this would be an API call)
     const problemToAdd: Problem = {
-      ...this.newProblem as Problem, // Cast to Problem, assuming other fields are handled by defaults or optional
-      id: 'prob' + (this.problems.length + 101), // Simple ID generation
+      ...this.newProblem as Problem,
+      id: 'prob' + (this.problems.length + 101), 
       slug: this.newProblem.title?.toLowerCase().replace(/\s+/g, '-') || '',
       tags: this.newProblem.tags || [],
-      created_by: 'Admin' // Ensure created_by is set
+      created_by: 'Admin' 
     };
 
     this.problems.push(problemToAdd);
@@ -105,11 +103,10 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.tagInput = '';
   }
 
-  // --- Edit Problem Logic ---
   startEdit(problem: Problem): void {
     this.editProblemId = problem.id;
-    this.editedProblem = { ...problem }; // Create a copy for editing
-    this.tagInput = ''; // Clear tag input for editing form
+    this.editedProblem = { ...problem }; 
+    this.tagInput = ''; 
   }
 
   cancelEdit(): void {
@@ -137,12 +134,11 @@ export class AdminComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // Simulate problem update (in a real app, this would be an API call)
     const index = this.problems.findIndex(p => p.id === this.editedProblem?.id);
     if (index !== -1) {
       this.problems[index] = {
         ...this.editedProblem as Problem,
-        slug: this.editedProblem.title?.toLowerCase().replace(/\s+/g, '-') || this.problems[index].slug // Update slug if title changed
+        slug: this.editedProblem.title?.toLowerCase().replace(/\s+/g, '-') || this.problems[index].slug 
       };
       alert('Problem updated successfully!');
       this.cancelEdit();
@@ -151,10 +147,8 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
-  // --- Delete Problem Logic ---
   deleteProblem(id: string): void {
     if (confirm('Are you sure you want to delete this problem?')) {
-      // Simulate problem deletion (in a real app, this would be an API call)
       this.problems = this.problems.filter(p => p.id !== id);
       alert('Problem deleted successfully!');
     }

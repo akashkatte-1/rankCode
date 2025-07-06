@@ -1,12 +1,12 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ProblemService } from '../services/problem.service';
-import { Problem } from '../services/problem.service'; // Assuming Problem interface is exported
-import { CommonModule } from '@angular/common'; // Import CommonModule
-import { FormsModule } from '@angular/forms'; // Import FormsModule
+import { Problem } from '../services/problem.service'; 
+import { CommonModule } from '@angular/common'; 
+import { FormsModule } from '@angular/forms'; 
 
 @Component({
-  standalone: true, // Mark as standalone
-  imports: [CommonModule, FormsModule], // Import CommonModule and FormsModule
+  standalone: true, 
+  imports: [CommonModule, FormsModule], 
   selector: 'app-problems',
   templateUrl: './problems.component.html',
   styleUrls: ['./problems.component.css']
@@ -47,7 +47,7 @@ export class ProblemsComponent implements OnInit {
   }
 
   handleFilterChange(): void {
-    this.currentPageNum = 1; // Reset to first page on filter change
+    this.currentPageNum = 1; 
   }
 
   get filteredProblems(): Problem[] {

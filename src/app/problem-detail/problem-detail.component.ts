@@ -1,15 +1,15 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { ProblemService, Problem } from '../services/problem.service'; // Adjust path
-import { SubmissionService } from '../services/submission.service'; // Adjust path
-import { AuthService } from '../services/auth.service'; // Adjust path
+import { ProblemService, Problem } from '../services/problem.service'; 
+import { SubmissionService } from '../services/submission.service'; 
+import { AuthService } from '../services/auth.service'; 
 import { Subscription } from 'rxjs';
-import { CommonModule } from '@angular/common'; // Import CommonModule
-import { FormsModule } from '@angular/forms'; // Import FormsModule
-import { MarkdownToHtmlPipe } from '../pipes/markdown-to-html.pipe'; // Import the pipe
+import { CommonModule } from '@angular/common'; 
+import { FormsModule } from '@angular/forms'; 
+import { MarkdownToHtmlPipe } from '../pipes/markdown-to-html.pipe'; 
 
 @Component({
-  standalone: true, // Mark as standalone
-  imports: [CommonModule, FormsModule,MarkdownToHtmlPipe], // Import CommonModule, FormsModule, and the pipe
+  standalone: true, 
+  imports: [CommonModule, FormsModule,MarkdownToHtmlPipe], 
   selector: 'app-problem-detail',
   templateUrl: './problem-detail.component.html',
   styleUrls: ['./problem-detail.component.css']
@@ -66,9 +66,7 @@ export class ProblemDetailComponent implements OnInit, OnChanges, OnDestroy {
     this.problemSubscription = this.problemService.getProblemById(id).subscribe({
       next: (data) => {
         this.problem = data;
-        // Pre-fill user code with a basic template for the selected language
         this.userCode = this.getLanguageTemplate(this.selectedLanguage);
-        // Pre-fill input with sample if available
         if (this.problem?.sample_input) {
           this.inputTestCase = this.problem.sample_input;
         }
