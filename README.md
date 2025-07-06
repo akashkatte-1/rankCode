@@ -109,7 +109,8 @@ We'll cover:
 
 ### `problems`
 
-\| id | title | slug | description | input\_format | output\_format | difficulty | tags | created\_by |
+| id | title | slug | description | input_format | output_format | difficulty | tags | created_by |
+| -- | ----- | ---- | ----------- | ------------ | ------------- | ---------- | ---- | ---------- |
 
 ### `test_cases`
 
